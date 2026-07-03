@@ -76,6 +76,4 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ---
 
-| | | |
-|:---:|:---:|:---:|
-| <img src=".github/images/pudding.gif" width="80"> | <img src=".github/images/nenad.png" width="60"> | *made over the weekends at pudding*<br>https://pudding.studio |
+<table><tr><td width="80"><img src=".github/images/pudding.gif" width="80"></td><td width="80"><img src=".github/images/nenad.png" width="80"></td><td><em>made over the weekends at pudding</em><br>https://pudding.studio</td></tr></table>
