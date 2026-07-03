@@ -37,7 +37,7 @@ static int      g_h  = 0;
 void about_init(const char *assets_dir)
 {
     char path[512];
-    snprintf(path, sizeof(path), "%s/nead.png", assets_dir);
+    snprintf(path, sizeof(path), "%s/about.png", assets_dir);
     int ch;
     g_px = stbi_load(path, &g_w, &g_h, &ch, 4);
 }

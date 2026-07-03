@@ -1,6 +1,8 @@
 # Toasty Squadron
 
-An animated screensaver for MiSTer FPGA. Pixel-art sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls. Optimised for CRT use at 240p/480i.
+An animated screensaver for MiSTer FPGA. Animated sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls.
+
+> Designed and tested exclusively on a CRT TV. All visuals — sprites, proportions, and pixel art — are tuned for CRT output via MiSTer's direct video. Results on other displays may vary.
 
 ## Installation
 
@@ -60,7 +62,7 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ---
 
-<img src="assets/nead.png" width="230" height="139">
+<img src="assets/about.png" width="230">
 
 *made over the weekends at pudding*  
 https://pudding.studio
