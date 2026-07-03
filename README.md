@@ -50,7 +50,7 @@ The following classical recordings are included and play automatically with full
 
 All recordings are provided by **[Musopen](https://musopen.org)** — a non-profit dedicated to free, unrestricted access to classical music. All tracks are **public domain** and may be used freely for any purpose, commercial or non-commercial.
 
-[![Musopen](.github/images/musopen-logo.svg)](https://musopen.org)
+[![Musopen](.github/images/musopen-logo.png)](https://musopen.org)
 
 You can also add your own MP3 or OGG files to the `music/` folder and the app will include them in the rotation.
 
