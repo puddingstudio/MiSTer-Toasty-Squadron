@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Zig
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.13.0
+
+      - name: Build ARM binary
+        run: make arm VERSION=${{ github.ref_name }}
+
+      - name: Package release
+        run: |
+          mkdir -p release/toasty
+          cp toasty-squadron-arm release/toasty/
+          cp ToastySquadron.sh release/toasty/
+          cp -r assets release/toasty/
+          cp -r covers release/toasty/
+          chmod +x release/toasty/toasty-squadron-arm
+          chmod +x release/toasty/ToastySquadron.sh
+          cd release
+          zip -r ../toasty-squadron-${{ github.ref_name }}.zip toasty/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: toasty-squadron-${{ github.ref_name }}.zip
