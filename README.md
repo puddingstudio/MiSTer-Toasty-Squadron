@@ -38,17 +38,21 @@ Then select **Scripts → ToastySquadron** from the MiSTer menu.
 
 ## Music
 
-Add any MP3 or OGG files to the `music/` folder and the app will play them all. The following tracks get full cover art and metadata automatically:
+The following classical recordings are included and play automatically with full cover art and metadata:
 
-| Cover | Composer | Title |
-|---|---|---|
-| ![J.S. Bach](covers/cover-bach.png) | J.S. Bach | Air on the G String |
-| ![Beethoven](covers/cover-beethoven.png) | Beethoven | Sonata No.15 — Pastoral Andante |
-| ![Chopin](covers/cover-chopin.png) | Chopin | Nocturne Op.9 No.2 |
-| ![Chopin](covers/cover-chopin.png) | Chopin | Waltz |
-| ![Schumann](covers/cover-schumann.png) | Schumann | Kinderszenen Op.15 No.1 |
+| Cover | Composer | Work | Source |
+|---|---|---|---|
+| ![J.S. Bach](covers/cover-bach.png) | J.S. Bach | Air on the G String (BWV 1068) | [Musopen](https://musopen.org/music/3775-orchestral-suite-no-3-in-d-major-bwv-1068/) |
+| ![Beethoven](covers/cover-beethoven.png) | Beethoven | Piano Sonata No.15 "Pastoral", Op.28 – II. Andante | [Musopen](https://musopen.org/music/2567-piano-sonata-no-15-in-d-major-op-28-pastoral/) |
+| ![Chopin](covers/cover-chopin.png) | Chopin | Nocturne in E♭ Major, Op.9, No.2 | [Musopen](https://musopen.org/music/108-nocturnes-op-9/) |
+| ![Chopin](covers/cover-chopin.png) | Chopin | Waltz in A Minor, B.150 | [Musopen](https://musopen.org/music/4406-waltz-in-a-minor-b-150/) |
+| ![Schumann](covers/cover-schumann.png) | Schumann | Kinderszenen Op.15, No.1 | [Musopen](https://musopen.org/music/2326-scenes-from-childhood-op-15/) |
 
-Name your MP3 files so the filename starts with the key — e.g. `bach.mp3`, `chopin-noc.mp3`, `chopin-wal.mp3`, `schumann.mp3`.
+All recordings are provided by **[Musopen](https://musopen.org)** — a non-profit dedicated to free, unrestricted access to classical music. All tracks are **public domain** and may be used freely for any purpose, commercial or non-commercial.
+
+[![Musopen](.github/images/musopen-logo.svg)](https://musopen.org)
+
+You can also add your own MP3 or OGG files to the `music/` folder and the app will include them in the rotation.
 
 ## Building from Source
 
