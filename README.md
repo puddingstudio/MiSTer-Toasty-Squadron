@@ -13,7 +13,7 @@ Download the latest release zip from the [Releases](../../releases) page and unz
 ├── toasty-squadron-arm
 ├── assets/
 ├── covers/
-└── music/              ← your MP3 files (not included)
+└── music/
 ```
 
 Copy the launch script to the MiSTer Scripts folder:
@@ -59,6 +59,16 @@ make arm
 ```
 
 Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nano).
+
+## Changelog
+
+### v0.9
+- Initial release
+- Animated toaster and toast sprites
+- Classical music playback with now-playing banner and cover art
+- Real-time clock with toggleable date display
+- Gamepad support
+- About screen with version number
 
 ---
 
