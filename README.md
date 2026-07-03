@@ -4,7 +4,7 @@ An animated screensaver for MiSTer FPGA. Pixel-art sprites drift across the scre
 
 ## Installation
 
-Copy the release files to `/media/fat/toasty/` on your MiSTer:
+Download the latest release zip from the [Releases](../../releases) page and unzip it. Copy the contents to your MiSTer:
 
 ```
 /media/fat/toasty/
@@ -60,7 +60,7 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ---
 
-<img src="assets/nead.png" width="384" height="83">
+<img src="assets/nead.png" width="230" height="139">
 
 *made over the weekends at pudding*  
 https://pudding.studio
