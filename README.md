@@ -48,7 +48,7 @@ The following classical recordings are included and play automatically with full
 | ![Chopin](covers/cover-chopin.png) | Chopin | Waltz in A Minor, B.150 | [Musopen](https://musopen.org/music/4406-waltz-in-a-minor-b-150/) |
 | ![Schumann](covers/cover-schumann.png) | Schumann | Kinderszenen Op.15, No.1 | [Musopen](https://musopen.org/music/2326-scenes-from-childhood-op-15/) |
 
-<a href="https://musopen.org"><img src=".github/images/musopen-logo.png" width="260"></a>
+<a href="https://musopen.org"><img src=".github/images/musopen-logo.png" width="170"></a>
 
 All recordings are provided by **[Musopen](https://musopen.org)** — a non-profit dedicated to free, unrestricted access to classical music. All tracks are **public domain** and may be used freely for any purpose, commercial or non-commercial.
 
