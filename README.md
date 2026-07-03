@@ -1,12 +1,6 @@
 # Toasty Squadron
 
-A framebuffer screensaver for [MiSTer FPGA](https://github.com/MiSTer-devel/Main_MiSTer/wiki). Animated pixel-art sprites drift across the screen while classical music plays in the background. Includes a clock display, now-playing banner with cover art, and gamepad controls.
-
-## Requirements
-
-- MiSTer FPGA (DE10-Nano)
-- 8BitDo or similar USB gamepad (SNES layout recommended)
-- Music files in MP3 format (see below)
+An animated screensaver for MiSTer FPGA. Pixel-art sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls. Optimised for CRT use at 240p/480i.
 
 ## Installation
 
@@ -14,26 +8,19 @@ Copy the release files to `/media/fat/toasty/` on your MiSTer:
 
 ```
 /media/fat/toasty/
-├── toasty-squadron-arm   ← compiled binary
-├── assets/               ← sprite sheets and images
-├── covers/               ← album artwork
-└── music/                ← your MP3 files (not included)
+├── toasty-squadron-arm
+├── assets/
+├── covers/
+└── music/              ← your MP3 files (not included)
 ```
 
-Then launch it — either SSH in or add it to your MiSTer menu:
+Copy the launch script to the MiSTer Scripts folder:
 
-```sh
-cd /media/fat/toasty
-TOASTY_ASSETS=assets TOASTY_MUSIC=music TOASTY_COVERS=covers ./toasty-squadron-arm
+```
+/media/fat/Scripts/ToastySquadron.sh
 ```
 
-### Autostart via daemon script
-
-```sh
-./screensaver-daemon.sh
-```
-
-The daemon monitors for MiSTer menu activity and launches/kills the screensaver automatically.
+Then select **Scripts → ToastySquadron** from the MiSTer menu.
 
 ## Controls
 
@@ -42,15 +29,14 @@ The daemon monitors for MiSTer menu activity and launches/kills the screensaver 
 | B | Exit (with confirm) |
 | A | Cycle clock position |
 | Y | Toggle date display |
-| D-pad Up | Play / resume music |
-| D-pad Down | Stop music |
+| D-pad Up / Down | Toggle music play / stop |
 | D-pad Left | Previous track |
 | D-pad Right | Next track |
 | Start | About screen |
 
 ## Music
 
-Toasty Squadron ships without audio files — add your own MP3s to the `music/` folder. The following tracks are officially supported with cover art and metadata:
+Add any MP3 or OGG files to the `music/` folder and the app will play them all. The following tracks get full cover art and metadata automatically:
 
 | Cover | Composer | Title |
 |---|---|---|
@@ -67,14 +53,14 @@ Name your MP3 files so the filename starts with the key — e.g. `bach.mp3`, `ch
 Requires [Zig](https://ziglang.org/) for cross-compilation:
 
 ```sh
-make
+make arm
 ```
 
-The Makefile cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nano).
+Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nano).
 
 ---
 
-![](assets/nead.png)
+<img src="assets/nead.png" width="384" height="83">
 
 *made over the weekends at pudding*  
 https://pudding.studio
