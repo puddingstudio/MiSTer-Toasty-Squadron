@@ -1,6 +1,6 @@
 # Toasty Squadron
 
-Our reimagined take on the classic Flying Toasters — downscaled to run natively on CRT TVs through MiSTer FPGA. Animated sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls.
+Our reimagined take on the classic Flying Toasters. [Toasty Squadron](http://toastysquadron.com) is our ongoing project — and this is us downscaling it to run natively on CRT TVs through MiSTer FPGA. Animated sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls.
 
 > Designed and tested exclusively on a CRT TV. All visuals and proportions are tuned for CRT output via MiSTer's direct video. Results on other displays may vary.
 
