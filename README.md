@@ -48,9 +48,9 @@ The following classical recordings are included and play automatically with full
 | ![Chopin](covers/cover-chopin.png) | Chopin | Waltz in A Minor, B.150 | [Musopen](https://musopen.org/music/4406-waltz-in-a-minor-b-150/) |
 | ![Schumann](covers/cover-schumann.png) | Schumann | Kinderszenen Op.15, No.1 | [Musopen](https://musopen.org/music/2326-scenes-from-childhood-op-15/) |
 
-All recordings are provided by **[Musopen](https://musopen.org)** — a non-profit dedicated to free, unrestricted access to classical music. All tracks are **public domain** and may be used freely for any purpose, commercial or non-commercial.
+<a href="https://musopen.org"><img src=".github/images/musopen-logo.png" width="260"></a>
 
-[![Musopen](.github/images/musopen-logo.png)](https://musopen.org)
+All recordings are provided by **[Musopen](https://musopen.org)** — a non-profit dedicated to free, unrestricted access to classical music. All tracks are **public domain** and may be used freely for any purpose, commercial or non-commercial.
 
 You can also add your own MP3 or OGG files to the `music/` folder and the app will include them in the rotation.
 
