@@ -18,7 +18,7 @@ jobs:
       - name: Install Zig
         uses: mlugg/setup-zig@v1
         with:
-          version: 0.13.0
+          version: 0.16.0
 
       - name: Build ARM binary
         run: make arm VERSION=${{ github.ref_name }}
