@@ -31,7 +31,7 @@ jobs:
           cp -r assets release/toasty/
           cp -r covers release/toasty/
           cp -r music release/toasty/
-          cp README.md release/toasty/
+          cp README.txt release/toasty/
           chmod +x release/toasty/toasty-squadron-arm
           chmod +x release/toasty/ToastySquadron.sh
           cd release
