@@ -30,6 +30,7 @@ jobs:
           cp ToastySquadron.sh release/toasty/
           cp -r assets release/toasty/
           cp -r covers release/toasty/
+          cp -r music release/toasty/
           chmod +x release/toasty/toasty-squadron-arm
           chmod +x release/toasty/ToastySquadron.sh
           cd release

@@ -6,9 +6,6 @@ toasty-squadron
 toasty-squadron-arm
 *.o
 
-# Music files — large audio, not redistributed in repo
-music/
-
 # macOS
 .DS_Store
 .AppleDouble
