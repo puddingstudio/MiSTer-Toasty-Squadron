@@ -40,13 +40,13 @@ Then select **Scripts → ToastySquadron** from the MiSTer menu.
 
 The following classical recordings are included and play automatically with full cover art and metadata:
 
-| Cover | Composer | Work | Source |
-|---|---|---|---|
-| ![J.S. Bach](covers/cover-bach.png) | J.S. Bach | Air on the G String (BWV 1068) | [Musopen](https://musopen.org/music/3775-orchestral-suite-no-3-in-d-major-bwv-1068/) |
-| ![Beethoven](covers/cover-beethoven.png) | Beethoven | Piano Sonata No.15 "Pastoral", Op.28 – II. Andante | [Musopen](https://musopen.org/music/2567-piano-sonata-no-15-in-d-major-op-28-pastoral/) |
-| ![Chopin](covers/cover-chopin.png) | Chopin | Nocturne in E♭ Major, Op.9, No.2 | [Musopen](https://musopen.org/music/108-nocturnes-op-9/) |
-| ![Chopin](covers/cover-chopin.png) | Chopin | Waltz in A Minor, B.150 | [Musopen](https://musopen.org/music/4406-waltz-in-a-minor-b-150/) |
-| ![Schumann](covers/cover-schumann.png) | Schumann | Kinderszenen Op.15, No.1 | [Musopen](https://musopen.org/music/2326-scenes-from-childhood-op-15/) |
+<table width="100%"><thead><tr><th>Cover</th><th>Composer</th><th>Work</th><th>Source</th></tr></thead><tbody>
+<tr><td><img src="covers/cover-bach.png"></td><td>J.S. Bach</td><td>Air on the G String (BWV 1068)</td><td><a href="https://musopen.org/music/3775-orchestral-suite-no-3-in-d-major-bwv-1068/">Musopen</a></td></tr>
+<tr><td><img src="covers/cover-beethoven.png"></td><td>Beethoven</td><td>Piano Sonata No.15 "Pastoral", Op.28 – II. Andante</td><td><a href="https://musopen.org/music/2567-piano-sonata-no-15-in-d-major-op-28-pastoral/">Musopen</a></td></tr>
+<tr><td><img src="covers/cover-chopin.png"></td><td>Chopin</td><td>Nocturne in E♭ Major, Op.9, No.2</td><td><a href="https://musopen.org/music/108-nocturnes-op-9/">Musopen</a></td></tr>
+<tr><td><img src="covers/cover-chopin.png"></td><td>Chopin</td><td>Waltz in A Minor, B.150</td><td><a href="https://musopen.org/music/4406-waltz-in-a-minor-b-150/">Musopen</a></td></tr>
+<tr><td><img src="covers/cover-schumann.png"></td><td>Schumann</td><td>Kinderszenen Op.15, No.1</td><td><a href="https://musopen.org/music/2326-scenes-from-childhood-op-15/">Musopen</a></td></tr>
+</tbody></table>
 
 <a href="https://musopen.org"><img src=".github/images/musopen-logo.png" width="170"></a>
 
