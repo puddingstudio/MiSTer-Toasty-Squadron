@@ -1,0 +1,20 @@
+# Cross-compile sysroot — large, generated, not needed in repo
+arm-sysroot/
+
+# Compiled binaries
+toasty-squadron
+toasty-squadron-arm
+*.o
+
+# Music files — large audio, not redistributed in repo
+music/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+*.swp
+*~
