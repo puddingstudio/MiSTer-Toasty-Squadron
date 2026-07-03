@@ -1,4 +1,4 @@
-Toasty Squadron v0.9
+Toasty Squadron v1.0
 ====================
 
 Our reimagined take on the classic Flying Toasters, Toasty Squadron brings
@@ -63,5 +63,17 @@ MORE INFO
 
 https://toastysquadron.com
 https://pudding.studio
+
+CHANGELOG
+---------
+
+v1.0
+  - Auto-update: About screen checks for new releases and installs
+    with one button press
+  - Added waffle sprite to screensaver rotation
+
+v0.9
+  - Initial release
+
 
 Made over the weekends at Pudding.
