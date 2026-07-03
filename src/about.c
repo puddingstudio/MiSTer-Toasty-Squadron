@@ -87,4 +87,13 @@ void about_draw(FBDev *fb)
     draw_text(fb, ttx, tty, TITLE, ts,  40,  40,  40, 230);
     draw_text(fb, tx1, ty1, LINE1, s1,  80,  80,  80, 200);
     draw_text(fb, tx2, ty2, LINE2, s1,  30,  80, 180, 210);
+
+#ifndef APP_VERSION
+#define APP_VERSION "dev"
+#endif
+    {
+        static const char ver[] = APP_VERSION;
+        int vw = (int)strlen(ver) * 8;
+        draw_text(fb, fb->width - vw - 6, fb->height - 8 - 6, ver, 1, 120, 120, 120, 160);
+    }
 }
