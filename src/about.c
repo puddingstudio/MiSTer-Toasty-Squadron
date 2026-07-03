@@ -94,6 +94,6 @@ void about_draw(FBDev *fb)
     {
         static const char ver[] = APP_VERSION;
         int vw = (int)strlen(ver) * 8;
-        draw_text(fb, fb->width - vw - 6, fb->height - 8 - 6, ver, 1, 120, 120, 120, 160);
+        draw_text(fb, fb->width - vw - 32, fb->height - 8 - 20, ver, 1, 120, 120, 120, 160);
     }
 }

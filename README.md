@@ -1,8 +1,8 @@
 # Toasty Squadron
 
-An animated screensaver for MiSTer FPGA. Animated sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls.
+Our reimagined take on the classic Flying Toasters — downscaled to run natively on CRT TVs through MiSTer FPGA. Animated sprites drift across the screen while classical music plays. Includes a clock display, now-playing banner with cover art, and gamepad controls.
 
-> Designed and tested exclusively on a CRT TV. All visuals — sprites, proportions, and pixel art — are tuned for CRT output via MiSTer's direct video. Results on other displays may vary.
+> Designed and tested exclusively on a CRT TV. All visuals and proportions are tuned for CRT output via MiSTer's direct video. Results on other displays may vary.
 
 ## Installation
 
@@ -61,8 +61,6 @@ make arm
 Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nano).
 
 ---
-
-<img src="assets/about.png" width="230">
 
 *made over the weekends at pudding*  
 https://pudding.studio
