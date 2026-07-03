@@ -68,7 +68,7 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ### v0.9
 - Initial release
-- Animated toaster and toast sprites
+- Animated toasters with a variety of breakfast-themed sprites
 - Classical music playback with now-playing banner and cover art
 - Real-time clock with toggleable date display
 - Gamepad support
