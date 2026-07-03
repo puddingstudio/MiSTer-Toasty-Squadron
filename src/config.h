@@ -4,7 +4,7 @@
 #define TARGET_FPS      60
 #define MAX_SPRITES     70
 #define NUM_LAYERS      5
-#define NUM_SPECS       14
+#define NUM_SPECS       15
 #define FLOAT_TABLE_SZ  360
 
 /* Runtime screen height and pixel aspect ratio — set from framebuffer at startup.
@@ -41,5 +41,5 @@ static const LayerConfig LAYER_CFG[NUM_LAYERS] = {
 };
 
 static const int SPEC_FRAMES[NUM_SPECS] = {
-    21, 32, 11, 32, 1, 43, 32, 23, 39, 33, 39, 39, 42, 18
+    21, 32, 11, 32, 1, 43, 32, 23, 39, 33, 39, 39, 42, 18, 42
 };

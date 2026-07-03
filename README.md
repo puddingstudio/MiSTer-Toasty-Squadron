@@ -66,6 +66,10 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ## Changelog
 
+### v1.0
+- Auto-update: About screen checks for new releases and installs with one button press
+- Added waffle sprite to screensaver rotation
+
 ### v0.9
 - Initial release
 - Animated toasters with a variety of breakfast-themed sprites

@@ -249,6 +249,7 @@ int main(void)
         }
         if (about_visible) {
             if (inp & INPUT_QUIT) about_visible = 0;
+            if (inp & INPUT_CONFIRM) about_start_install();
             goto frame_end;
         }
 
