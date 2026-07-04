@@ -71,9 +71,15 @@ v1.0
   - Auto-update: About screen checks for new releases and installs
     with one button press
   - Added waffle sprite to screensaver rotation
+  - Prefixed title with MiSTer in README
 
 v0.9
   - Initial release
+  - Animated toasters with a variety of breakfast-themed sprites
+  - Classical music playback with now-playing banner and cover art
+  - Real-time clock with toggleable date display
+  - Gamepad support
+  - About screen with version number
 
 
 Made over the weekends at Pudding.

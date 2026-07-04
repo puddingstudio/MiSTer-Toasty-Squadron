@@ -69,6 +69,7 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 ### v1.0
 - Auto-update: About screen checks for new releases and installs with one button press
 - Added waffle sprite to screensaver rotation
+- Prefixed title with MiSTer in README
 
 ### v0.9
 - Initial release
