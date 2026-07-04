@@ -1,5 +1,5 @@
-Toasty Squadron v1.0
-====================
+MiSTer Toasty Squadron v1.0
+===========================
 
 Our reimagined take on the classic Flying Toasters, Toasty Squadron brings
 the iconic screensaver to CRT TVs through MiSTer FPGA. Animated sprites drift
