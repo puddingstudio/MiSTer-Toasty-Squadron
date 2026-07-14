@@ -67,7 +67,10 @@ https://pudding.studio
 CHANGELOG
 ---------
 
-v1.0
+v1.0 (rebuilt)
+  - Fix: rebuilt release - the initial v1.0 build was missing the
+    waffle sprite asset (asset15), which caused the app to crash on
+    launch. That asset is now bundled correctly
   - Auto-update: About screen checks for new releases and installs
     with one button press
   - Added waffle sprite to screensaver rotation

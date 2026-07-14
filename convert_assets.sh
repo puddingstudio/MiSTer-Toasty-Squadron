@@ -30,7 +30,7 @@ echo "Source: $SRC_DIR"
 echo "Destination: $DST_DIR"
 
 # Sprite frames (128×128)
-for i in $(seq 1 14); do
+for i in $(seq 1 15); do
     dir="$DST_DIR/asset${i}"
     mkdir -p "$dir"
     src_dir="$SRC_DIR/asset${i}"
