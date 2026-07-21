@@ -72,7 +72,8 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ### v1.1
 - New About screen: animated starfield background and a big spinning waffle sprite instead of the old static image
-- Fix: Confirm/Quit were on swapped buttons compared to the standard MiSTer menu convention (A confirms, B quits) — now consistent
+- Fix: navigation with controllers and keyboard, including Bluetooth/USB 8BitDo pads
+- Added full keyboard support
 
 ### v1.0 (rebuilt)
 - Fix: rebuilt release — the initial v1.0 build was missing the waffle sprite asset (asset15), which caused the app to crash on launch. That asset is now bundled correctly
