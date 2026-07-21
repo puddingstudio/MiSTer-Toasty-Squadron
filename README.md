@@ -72,7 +72,7 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ### v1.1
 - New About screen: animated starfield background and a big spinning waffle sprite instead of the old static image
-- Fix: navigation with controllers and keyboard, including Bluetooth/USB 8BitDo pads
+- Fix: navigation with controllers and keyboard, including Bluetooth/USB pads
 - Added full keyboard support
 
 ### v1.0 (rebuilt)
