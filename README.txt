@@ -32,10 +32,10 @@ Then select Scripts → ToastySquadron from the MiSTer menu.
 CONTROLS
 --------
 
-  Button           Keyboard          Action
-  B                Esc / Backspace   Exit (with confirm)
-  A                Enter             Cycle clock position
-  Y                -                 Toggle date display
+  Button           Keyboard            Action
+  B                Esc/Backspace/Z     Exit (with confirm)
+  A                Enter / X           Cycle clock position
+  Y                A                   Toggle date display
   D-pad Up/Down    Up / Down         Toggle music play / stop
   D-pad Left       Left              Previous track
   D-pad Right      Right             Next track

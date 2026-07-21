@@ -152,12 +152,16 @@ static int input_poll(void)
                  * flips osd.confirm_exit and is checked later in the same
                  * frame, so a button that set both bits would cycle the
                  * clock every time it happened to also cancel the dialog. */
-                case BTN_EAST: case KEY_ENTER:
+                /* Enter/Esc are the intuitive confirm/cancel pair; X/Z/A are
+                 * the de facto SNES-emulator standard (RetroArch/SNES9x
+                 * default keyboard mapping) matching the SNES pad's A
+                 * (right) / B (bottom) / Y (left) positions — all work. */
+                case BTN_EAST: case KEY_ENTER: case KEY_X:
                     mask |= INPUT_CONFIRM | INPUT_CLOCK; break;
                 case BTN_SOUTH:
-                case KEY_ESC: case KEY_BACKSPACE:
+                case KEY_ESC: case KEY_BACKSPACE: case KEY_Z:
                     mask |= INPUT_QUIT;                 break;
-                case BTN_WEST:      mask |= INPUT_DATE;             break;
+                case BTN_WEST: case KEY_A:  mask |= INPUT_DATE;      break;
                 case BTN_START: case KEY_SPACE: case KEY_HOME: mask |= INPUT_ABOUT; break;
                 case KEY_UP:
                 case BTN_DPAD_UP:   mask |= INPUT_MUSIC_PLAY;       break;
