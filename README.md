@@ -1,5 +1,7 @@
 # MiSTer Toasty Squadron
 
+<p align="center"><img src="docs/about.gif" width="100%" alt="Toasty Squadron about screen"></p>
+
 Our reimagined take on the classic Flying Toasters, **[Toasty Squadron](http://toastysquadron.com)** is an ongoing project that brings the iconic screensaver to CRT TVs through MiSTer FPGA. Animated sprites drift across the screen while classical music plays, creating an authentic retro experience. Features include a real-time clock, a now-playing banner with cover art, and full gamepad support.
 
 > Designed and tested exclusively on a CRT TV. All visuals and proportions are tuned for CRT output via MiSTer's direct video. Results on other displays may vary.
@@ -68,6 +70,7 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ### v1.1
 - New About screen: animated starfield background and a big spinning waffle sprite instead of the old static image
+- Fix: Confirm/Quit were on swapped buttons compared to the standard MiSTer menu convention (A confirms, B quits) — now consistent
 
 ### v1.0 (rebuilt)
 - Fix: rebuilt release — the initial v1.0 build was missing the waffle sprite asset (asset15), which caused the app to crash on launch. That asset is now bundled correctly

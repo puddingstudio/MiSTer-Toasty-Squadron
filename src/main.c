@@ -95,8 +95,12 @@ static int input_poll(void)
         while (read(input_fds[i], &ev, sizeof(ev)) == (ssize_t)sizeof(ev)) {
             if (ev.type == EV_KEY && ev.value == 1) {
                 switch (ev.code) {
-                case BTN_EAST:      mask |= INPUT_QUIT;             break;
-                case BTN_SOUTH:     mask |= INPUT_CLOCK | INPUT_CONFIRM; break;
+                /* CONFIRM on EAST, QUIT on SOUTH — matches MiSTerFin/the
+                 * standard MiSTer menu's own A/B convention (was inverted
+                 * here before, confirmed by the user comparing the same
+                 * physical buttons across both apps). */
+                case BTN_EAST:      mask |= INPUT_CONFIRM;           break;
+                case BTN_SOUTH:     mask |= INPUT_CLOCK | INPUT_QUIT; break;
                 case BTN_WEST:      mask |= INPUT_DATE;             break;
                 case BTN_START:     mask |= INPUT_ABOUT;            break;
                 case KEY_UP:
@@ -322,7 +326,7 @@ int main(void)
         anim_update(&sc, (float)now, (float)dt);
 
         if (about_visible) {
-            about_draw(&fb);
+            about_draw(&fb, 1);
         } else {
             render_bg(&fb, &sc);
             osd_draw(&osd, &fb);     /* clock/NP behind sprites */

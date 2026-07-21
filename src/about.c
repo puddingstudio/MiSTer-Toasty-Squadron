@@ -251,7 +251,10 @@ void about_free(void)
     g_waffle_n = 0;
 }
 
-void about_draw(FBDev *fb)
+/* show_footer=0 skips the "<version> installed"/update-available line —
+ * used by tools/capture_about.c to render a clean frame for a standalone
+ * marketing GIF (see docs/about.gif in the README). */
+void about_draw(FBDev *fb, int show_footer)
 {
     fb_clear(fb);
     draw_starfield(fb);
@@ -309,6 +312,8 @@ void about_draw(FBDev *fb)
     draw_text(fb, ttx, tty, TITLE, ts, 0xFF, 0xE0, 0x40, 255);
     draw_text(fb, tx1, ty1, LINE1, s1, 0xCC, 0xCC, 0xCC, 255);
     draw_text(fb, tx2, ty2, LINE2, s1, 0xFF, 0xC0, 0x40, 255);
+
+    if (!show_footer) return;
 
     /* ── bottom-left: version + update status ── */
     pthread_mutex_lock(&g_upd_mutex);

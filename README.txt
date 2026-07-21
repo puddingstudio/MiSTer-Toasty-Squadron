@@ -70,6 +70,8 @@ CHANGELOG
 v1.1
   - New About screen: animated starfield background and a big spinning
     waffle sprite instead of the old static image
+  - Fix: Confirm/Quit were on swapped buttons compared to the standard
+    MiSTer menu convention (A confirms, B quits) - now consistent
 
 v1.0 (rebuilt)
   - Fix: rebuilt release - the initial v1.0 build was missing the

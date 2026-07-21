@@ -4,6 +4,7 @@ arm-sysroot/
 # Compiled binaries
 toasty-squadron
 toasty-squadron-arm
+tools/capture_about
 *.o
 
 # macOS
