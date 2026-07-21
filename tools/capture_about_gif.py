@@ -18,7 +18,9 @@ Usage: python3 tools/capture_about_gif.py <frames_dir> <width> <height> <out.gif
 import sys, os, glob, array, struct
 from collections import Counter
 
-DELAY_CS = 4          # centiseconds per frame (40ms, matches the capture's own usleep)
+DELAY_CS = 8          # centiseconds per frame — matches how long the real app holds
+                      # each waffle pose: WAFFLE_TICK_ADVANCE(5) / TARGET_FPS(60) ≈ 8.33cs,
+                      # see tools/capture_about.c's own comment for why this isn't 4
 MAX_COLORS = 256
 
 def load_frames(frames_dir, w, h):
