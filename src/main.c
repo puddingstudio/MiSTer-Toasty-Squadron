@@ -54,7 +54,35 @@ static double now_sec(void)
 
 #define MAX_INPUT_FDS 8
 static int input_fds[MAX_INPUT_FDS];
+static int input_swap_ab[MAX_INPUT_FDS];
+static int input_is_virtual[MAX_INPUT_FDS];
 static int input_count = 0;
+
+/* Some 8BitDo SNES-style pads (confirmed on the SFC30 via raw evdev capture)
+ * report their printed A/B buttons as BTN_SOUTH/BTN_EAST swapped relative to
+ * the usual position-based convention (printed A -> BTN_SOUTH, printed B ->
+ * BTN_EAST) — the firmware enumerates buttons in legacy SNES ordinal order
+ * rather than by physical/compass position, unlike XInput-style pads. Swap
+ * them back per-device so A is always "confirm" and B is always "back". */
+static int device_needs_ab_swap(const char *name)
+{
+    return strstr(name, "SFC30") != NULL;
+}
+
+/* MiSTer's own OSD layer echoes every physical joystick press as a
+ * synthetic keyboard event on a separate virtual device (confirmed via raw
+ * evdev capture: pressing a gamepad button also fires an unrelated KEY_*
+ * code on this device, per whatever key MiSTer's own default joystick-to-
+ * OSD table happens to assign it). Turns out the SFC30's D-pad specifically
+ * only ever arrives THROUGH this echo (as KEY_UP/DOWN/LEFT/RIGHT — it has
+ * no EV_ABS capability of its own, confirmed via /proc/bus/input/devices),
+ * so it can't just be closed outright. Instead only arrow-key codes from it
+ * are trusted (see input_poll) — action keys (Enter/Esc/Space/...) are
+ * dropped since those collide with keys we bind for real keyboards/pads. */
+static int device_is_mister_virtual(const char *name)
+{
+    return strcmp(name, "MiSTer virtual input") == 0;
+}
 
 #define INPUT_QUIT       0x001
 #define INPUT_CONFIRM    0x002
@@ -76,7 +104,13 @@ static void input_open_all(void)
         char path[64];
         snprintf(path, sizeof(path), "/dev/input/%s", e->d_name);
         int fd = open(path, O_RDONLY | O_NONBLOCK);
-        if (fd >= 0) input_fds[input_count++] = fd;
+        if (fd < 0) continue;
+
+        char name[128] = "";
+        ioctl(fd, EVIOCGNAME(sizeof(name)), name);
+        input_swap_ab[input_count]    = device_needs_ab_swap(name);
+        input_is_virtual[input_count] = device_is_mister_virtual(name);
+        input_fds[input_count++] = fd;
     }
     closedir(d);
 }
@@ -94,15 +128,37 @@ static int input_poll(void)
     for (int i = 0; i < input_count; i++) {
         while (read(input_fds[i], &ev, sizeof(ev)) == (ssize_t)sizeof(ev)) {
             if (ev.type == EV_KEY && ev.value == 1) {
-                switch (ev.code) {
-                /* CONFIRM on EAST, QUIT on SOUTH — matches MiSTerFin/the
-                 * standard MiSTer menu's own A/B convention (was inverted
-                 * here before, confirmed by the user comparing the same
-                 * physical buttons across both apps). */
-                case BTN_EAST:      mask |= INPUT_CONFIRM;           break;
-                case BTN_SOUTH:     mask |= INPUT_CLOCK | INPUT_QUIT; break;
+                int code = ev.code;
+                if (input_swap_ab[i]) {
+                    if      (code == BTN_SOUTH) code = BTN_EAST;
+                    else if (code == BTN_EAST)  code = BTN_SOUTH;
+                }
+                /* MiSTer's own core process exclusively grabs directly-wired
+                 * USB joysticks for FPGA/OSD routing (confirmed via
+                 * /proc/PID/fd) so the virtual echo device is the ONLY
+                 * input path for a wired pad, meaning its confirm/cancel/
+                 * nav keys must stay trusted here, same reasoning as
+                 * MiSTerFin. */
+                if (input_is_virtual[i] &&
+                    code != KEY_UP && code != KEY_DOWN &&
+                    code != KEY_LEFT && code != KEY_RIGHT &&
+                    code != KEY_ENTER && code != KEY_ESC && code != KEY_BACKSPACE) {
+                    continue;
+                }
+                switch (code) {
+                /* CONFIRM+CLOCK on EAST ("forward"), QUIT on SOUTH ("back")
+                 * — matches MiSTerFin/the standard MiSTer menu's own A/B
+                 * convention. CLOCK must NOT share a button with QUIT: QUIT
+                 * flips osd.confirm_exit and is checked later in the same
+                 * frame, so a button that set both bits would cycle the
+                 * clock every time it happened to also cancel the dialog. */
+                case BTN_EAST: case KEY_ENTER:
+                    mask |= INPUT_CONFIRM | INPUT_CLOCK; break;
+                case BTN_SOUTH:
+                case KEY_ESC: case KEY_BACKSPACE:
+                    mask |= INPUT_QUIT;                 break;
                 case BTN_WEST:      mask |= INPUT_DATE;             break;
-                case BTN_START:     mask |= INPUT_ABOUT;            break;
+                case BTN_START: case KEY_SPACE: case KEY_HOME: mask |= INPUT_ABOUT; break;
                 case KEY_UP:
                 case BTN_DPAD_UP:   mask |= INPUT_MUSIC_PLAY;       break;
                 case KEY_DOWN:
