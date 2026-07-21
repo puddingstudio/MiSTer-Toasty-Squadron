@@ -54,7 +54,11 @@ static int set_track_meta(MusicState *m, const char *path)
 static void kill_child(MusicState *m)
 {
     if (m->pid > 0) {
-        kill(m->pid, SIGKILL);   /* instant — SIGTERM can take 100-200ms */
+        killpg(m->pid, SIGKILL);   /* instant — SIGTERM can take 100-200ms.
+                                     * Whole group (see setpgid in play_track),
+                                     * not just the direct pid, in case mpg123
+                                     * ever forks its own helper the way
+                                     * mplayer's -cache does elsewhere. */
         waitpid(m->pid, NULL, 0);
         m->pid = -1;
     }
@@ -76,6 +80,7 @@ static void play_track(MusicState *m, int idx)
 
     pid_t pid = fork();
     if (pid == 0) {
+        setpgid(0, 0);   /* own process group — see kill_child()'s killpg */
         int devnull = open("/dev/null", 0);
         if (devnull >= 0) { dup2(devnull, 0); dup2(devnull, 1); dup2(devnull, 2); close(devnull); }
         execlp("mpg123", "mpg123", "--quiet", m->files[m->current], (char *)NULL);
@@ -90,6 +95,15 @@ int music_start(MusicState *m, const char *dir)
     memset(m, 0, sizeof(*m));
     m->pid = -1;
     if (!dir || !*dir) return 0;
+
+    /* A prior instance killed abruptly (SIGKILL — from the MiSTer menu's own
+     * core-switch, or a forced redeploy) never reaches music_stop(), which
+     * leaves its mpg123 child running as an orphan — confirmed on real
+     * hardware: exiting the app left music audibly still playing. SIGKILL
+     * can't be caught to clean this up from the dying process itself, so
+     * clean up any leftover instance here instead, right before starting
+     * a fresh one. */
+    system("killall -9 mpg123 >/dev/null 2>&1");
 
     DIR *d = opendir(dir);
     if (!d) return -1;

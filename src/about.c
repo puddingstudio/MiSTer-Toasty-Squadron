@@ -167,16 +167,75 @@ static void draw_text(FBDev *fb, int x, int y, const char *str, int scale,
                   scale, r, g, b, alpha);
 }
 
-static uint8_t *g_px = NULL;
-static int      g_w  = 0;
-static int      g_h  = 0;
+/* "Flying through stars" background, same as MiSTerFin's About screen —
+ * each star has a depth (z) that shrinks every frame; projecting x/y by
+ * 1/z makes it appear to accelerate toward the viewer, respawning at max
+ * depth once it passes the camera or drifts off-screen. */
+#define STAR_COUNT 40
+typedef struct { float x, y, z; } Star;
+static Star g_stars[STAR_COUNT];
+static int  g_stars_init = 0;
+
+static float star_frand_pm1(void) { return ((float)rand() / (float)RAND_MAX) * 2.0f - 1.0f; }
+
+static void star_respawn(Star *s)
+{
+    s->x = star_frand_pm1();
+    s->y = star_frand_pm1();
+    s->z = 1.0f;
+}
+
+static void draw_starfield(FBDev *fb)
+{
+    if (!g_stars_init) {
+        g_stars_init = 1;
+        for (int i = 0; i < STAR_COUNT; i++) {
+            star_respawn(&g_stars[i]);
+            g_stars[i].z = 0.05f + ((float)rand() / (float)RAND_MAX) * 0.95f;
+        }
+    }
+    for (int i = 0; i < STAR_COUNT; i++) {
+        Star *s = &g_stars[i];
+        s->z -= 0.012f;
+        if (s->z <= 0.05f) star_respawn(s);
+
+        float scale = 1.0f / s->z;
+        int sx = (int)(fb->width  / 2 + s->x * scale * (fb->width  / 4));
+        int sy = (int)(fb->height / 2 + s->y * scale * (fb->height / 4));
+        if (sx < 0 || sx >= fb->width || sy < 0 || sy >= fb->height) { star_respawn(s); continue; }
+
+        int size = scale > 2.2f ? 2 : 1;
+        uint8_t bright = scale > 1.4f ? 255 : 150;
+        fb_fill_rect_alpha(fb, sx, sy, size, size, bright, bright, bright, 255);
+    }
+}
+
+/* Waffle (asset15 — the biggest sprite in the deck, 320x320 vs. every
+ * other sprite's 128x128, confirmed by checking each PNG's header) stands
+ * in for the old about.png photo, animated through its full frame set
+ * instead of a static image. Loaded directly here (not through the main
+ * Scene/sprite pool in sprite.c) since the About screen doesn't need any
+ * of that pool's physics/floating logic, just a plain looping blit. */
+#define WAFFLE_SPEC_INDEX (NUM_SPECS - 1)
+#define WAFFLE_DISPLAY_SIZE 200
+
+static uint8_t *g_waffle_px[64];
+static int      g_waffle_w[64], g_waffle_h[64];
+static int      g_waffle_n = 0;
+static int      g_waffle_frame = 0;
+static int      g_waffle_tick = 0;
 
 void about_init(const char *assets_dir)
 {
-    char path[512];
-    snprintf(path, sizeof(path), "%s/about.png", assets_dir);
-    int ch;
-    g_px = stbi_load(path, &g_w, &g_h, &ch, 4);
+    g_waffle_n = SPEC_FRAMES[WAFFLE_SPEC_INDEX];
+    if (g_waffle_n > 64) g_waffle_n = 64;
+    for (int i = 0; i < g_waffle_n; i++) {
+        char path[512];
+        snprintf(path, sizeof(path), "%s/asset%d/asset%d_%d.png",
+                 assets_dir, WAFFLE_SPEC_INDEX + 1, WAFFLE_SPEC_INDEX + 1, i + 1);
+        int ch;
+        g_waffle_px[i] = stbi_load(path, &g_waffle_w[i], &g_waffle_h[i], &ch, 4);
+    }
 
     g_upd_state  = UPD_CHECKING;
     g_inst_state = INST_IDLE;
@@ -187,19 +246,15 @@ void about_init(const char *assets_dir)
 
 void about_free(void)
 {
-    if (g_px) { stbi_image_free(g_px); g_px = NULL; }
-    g_w = g_h = 0;
+    for (int i = 0; i < g_waffle_n; i++)
+        if (g_waffle_px[i]) { stbi_image_free(g_waffle_px[i]); g_waffle_px[i] = NULL; }
+    g_waffle_n = 0;
 }
 
 void about_draw(FBDev *fb)
 {
-    for (int y = 0; y < fb->height; y++) {
-        uint32_t *row = (uint32_t *)(fb->back + y * fb->stride);
-        for (int x = 0; x < fb->width; x++)
-            row[x] = 0xFFD4D4D4;
-    }
-
-    if (!g_px || g_w <= 0 || g_h <= 0) return;
+    fb_clear(fb);
+    draw_starfield(fb);
 
     static const char TITLE[] = "Toasty Squadron";
     static const char LINE1[] = "made over the weekends at pudding";
@@ -212,22 +267,48 @@ void about_draw(FBDev *fb)
     const int gap = 8;
     const int lsp = 4;
 
-    int total_h = g_h + gap + tch + 6 + sch + lsp + sch;
-    int dx = (fb->width - g_w) / 2;
-    int dy = (fb->height - total_h) / 2;
+    int have_waffle = (g_waffle_n > 0 && g_waffle_px[g_waffle_frame]);
+    int img_w = have_waffle ? WAFFLE_DISPLAY_SIZE : 0;
+    /* CRT non-square pixels stretch a plain square vertically — every other
+     * sprite in the scene corrects for this by scaling its height down by
+     * PIXEL_ASPECT_R (see sprite.c's own inst->height calc); this square
+     * waffle blit needs the same correction or it reads as "elongated" on
+     * real hardware (confirmed by the user), even though it looks fine
+     * rendered off-device where pixels are actually square. */
+    int img_h = (int)(img_w * PIXEL_ASPECT_R);
 
-    fb_blit(fb, g_px, g_w, g_h, dx, dy, g_w, g_h, 255);
+    int total_h = img_h + (img_h ? gap : 0) + tch + 6 + sch + lsp + sch;
+    int dx = (fb->width - img_w) / 2;
+    /* Centering across the FULL screen height sat too low (crowding the
+     * bottom-left version/update line below) — same fix as MiSTerFin's own
+     * About screen: reserve room for that footer first, then center the
+     * sprite+text block in what's left above it, nudged down a touch so
+     * it doesn't hug the top. */
+    int avail_bottom = fb->height - 8 - 20 - 14 - 6;
+    int dy = (avail_bottom - total_h) / 2 + 12;
+    if (dy < 8) dy = 8;
 
-    int tty = dy + g_h + gap;
+    if (have_waffle) {
+        /* 12fps, same cadence as the main scene's own sprite animation
+         * (FRAME_DURATION in config.h) — TARGET_FPS/5 ≈ 12. */
+        if (++g_waffle_tick >= 5) {
+            g_waffle_tick = 0;
+            g_waffle_frame = (g_waffle_frame + 1) % g_waffle_n;
+        }
+        fb_blit(fb, g_waffle_px[g_waffle_frame], g_waffle_w[g_waffle_frame], g_waffle_h[g_waffle_frame],
+                dx, dy, img_w, img_h, 255);
+    }
+
+    int tty = dy + img_h + gap;
     int ty1 = tty + tch + 6;
     int ty2 = ty1 + sch + lsp;
     int ttx = (fb->width - (int)strlen(TITLE) * 8 * ts) / 2;
     int tx1 = (fb->width - (int)strlen(LINE1) * 8 * s1) / 2;
     int tx2 = (fb->width - (int)strlen(LINE2) * 8 * s1) / 2;
 
-    draw_text(fb, ttx, tty, TITLE, ts, 40,  40,  40, 230);
-    draw_text(fb, tx1, ty1, LINE1, s1, 80,  80,  80, 200);
-    draw_text(fb, tx2, ty2, LINE2, s1, 30,  80, 180, 210);
+    draw_text(fb, ttx, tty, TITLE, ts, 0xFF, 0xE0, 0x40, 255);
+    draw_text(fb, tx1, ty1, LINE1, s1, 0xCC, 0xCC, 0xCC, 255);
+    draw_text(fb, tx2, ty2, LINE2, s1, 0xFF, 0xC0, 0x40, 255);
 
     /* ── bottom-left: version + update status ── */
     pthread_mutex_lock(&g_upd_mutex);

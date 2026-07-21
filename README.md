@@ -66,6 +66,9 @@ Cross-compiles for `arm-linux-gnueabihf` targeting glibc 2.31 (MiSTer's DE10-Nan
 
 ## Changelog
 
+### v1.1
+- New About screen: animated starfield background and a big spinning waffle sprite instead of the old static image
+
 ### v1.0 (rebuilt)
 - Fix: rebuilt release — the initial v1.0 build was missing the waffle sprite asset (asset15), which caused the app to crash on launch. That asset is now bundled correctly
 - Auto-update: About screen checks for new releases and installs with one button press

@@ -1,4 +1,4 @@
-MiSTer Toasty Squadron v1.0
+MiSTer Toasty Squadron v1.1
 ===========================
 
 Our reimagined take on the classic Flying Toasters, Toasty Squadron brings
@@ -66,6 +66,10 @@ https://pudding.studio
 
 CHANGELOG
 ---------
+
+v1.1
+  - New About screen: animated starfield background and a big spinning
+    waffle sprite instead of the old static image
 
 v1.0 (rebuilt)
   - Fix: rebuilt release - the initial v1.0 build was missing the
